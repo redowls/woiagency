@@ -206,6 +206,7 @@ body {
   overflow: hidden;
   box-shadow: 0 4px 22px rgba(11, 28, 61, 0.08);
   height: 270px;
+  cursor: pointer;
 }
 
 .woi-card:hover {
@@ -232,6 +233,141 @@ body {
 .woi-card:hover .woi-cap {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ============ Lightbox ============ */
+@keyframes woi-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes woi-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.woi-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 48px 90px;
+  background: rgba(5, 13, 33, 0.78);
+  backdrop-filter: blur(10px);
+  animation: woi-fade-in 0.25s ease;
+}
+
+.woi-lightbox-dialog {
+  display: flex;
+  width: min(980px, 100%);
+  height: min(620px, 88vh);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  color: #0b1c3d;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5);
+  animation: woi-pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.woi-lightbox-media {
+  flex: 1;
+  min-width: 0;
+  background: #050d21;
+  display: grid;
+  place-items: center;
+}
+
+.woi-lightbox-media img,
+.woi-lightbox-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.woi-lightbox-panel {
+  width: 340px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 26px 22px;
+}
+
+.woi-lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.25s ease;
+}
+
+.woi-lightbox-close:hover {
+  background: rgba(10, 72, 255, 0.5);
+}
+
+.woi-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  padding-bottom: 4px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.woi-lightbox-nav:hover {
+  background: rgba(10, 72, 255, 0.5);
+}
+
+.woi-lightbox-cta {
+  display: grid;
+  place-items: center;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(120deg, #0a48ff, #01bdf9);
+  padding: 13px 0;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(10, 72, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.woi-lightbox-cta:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(1, 189, 249, 0.5);
+}
+
+.woi-lightbox-cta:active {
+  transform: scale(0.97);
 }
 
 /* ============ Contact ============ */

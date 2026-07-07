@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { CATEGORIES, PORTFOLIO_ITEMS } from "@/lib/portfolio";
+import Lightbox from "@/components/Lightbox";
 
 function PortfolioVideo() {
   const ref = useRef<HTMLVideoElement>(null);
@@ -36,6 +37,7 @@ function PortfolioVideo() {
 
 export default function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
+  const [selected, setSelected] = useState<number | null>(null);
   const items = PORTFOLIO_ITEMS.filter((it) => filter === "All" || it.cat === filter);
 
   return (
@@ -97,15 +99,18 @@ export default function Portfolio() {
           <button
             key={c}
             className={`woi-filter-pill${filter === c ? " is-active" : ""}`}
-            onClick={() => setFilter(c)}
+            onClick={() => {
+              setFilter(c);
+              setSelected(null);
+            }}
           >
             {c}
           </button>
         ))}
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}>
-        {items.map((it) => (
-          <div key={it.title} className="woi-card">
+        {items.map((it, i) => (
+          <div key={it.title} className="woi-card" onClick={() => setSelected(i)}>
             <div style={{ width: "100%", height: "100%", background: "#eef2fa", overflow: "hidden" }}>
               {it.isVideo ? (
                 <PortfolioVideo />
@@ -129,6 +134,14 @@ export default function Portfolio() {
           </div>
         ))}
       </div>
+      {selected !== null && (
+        <Lightbox
+          items={items}
+          index={selected}
+          onClose={() => setSelected(null)}
+          onNavigate={setSelected}
+        />
+      )}
     </div>
   );
 }
