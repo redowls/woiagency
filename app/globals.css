@@ -402,17 +402,82 @@ body {
 }
 
 .woi-lightbox-media {
+  position: relative;
   flex: 1;
   min-width: 0;
   background: #050d21;
-  display: grid;
-  place-items: center;
+  /* flex (not grid) so the image's max-height resolves against this box */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* keep the artwork floating inside its own box, never glued to the panel */
+  padding: 22px;
+  box-sizing: border-box;
 }
 
 .woi-lightbox-media img,
 .woi-lightbox-media video {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.woi-fullscreen-btn {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(5, 13, 33, 0.55);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease;
+}
+
+.woi-lightbox-media:hover .woi-fullscreen-btn,
+.woi-fullscreen-btn:focus-visible {
+  opacity: 1;
+}
+
+.woi-fullscreen-btn:hover {
+  background: rgba(10, 72, 255, 0.6);
+}
+
+/* no hover on touch screens — keep the button visible */
+@media (hover: none) {
+  .woi-fullscreen-btn {
+    opacity: 1;
+  }
+}
+
+.woi-fullview {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(2, 7, 18, 0.96);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  animation: woi-fade-in 0.2s ease;
+}
+
+.woi-fullview img,
+.woi-fullview video {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
 }
 
@@ -616,15 +681,17 @@ body {
     border-radius: 18px;
   }
 
+  /* two clean boxes: media takes the top half, details scroll below */
   .woi-lightbox-media {
-    flex: 1 1 auto;
+    flex: 0 0 52%;
     min-height: 0;
+    padding: 16px;
   }
 
   .woi-lightbox-panel {
     width: auto;
-    flex: 0 0 auto;
-    max-height: 48%;
+    flex: 1 1 auto;
+    min-height: 0;
     overflow-y: auto;
     padding: 18px 20px 16px;
   }

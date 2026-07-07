@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { PortfolioItem } from "@/lib/portfolio";
 import { scrollToSection } from "@/lib/scroll";
 
@@ -14,17 +14,23 @@ type Props = {
 export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
   const item = items[index];
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [fullview, setFullview] = useState(false);
 
   const prev = () => onNavigate((index - 1 + items.length) % items.length);
   const next = () => onNavigate((index + 1) % items.length);
 
-  // lock page scroll while open; Esc closes, arrows navigate
+  // leave fullscreen when moving to another work
+  useEffect(() => setFullview(false), [index]);
+
+  // lock page scroll while open; Esc closes (fullscreen first), arrows navigate
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-      else if (e.key === "ArrowLeft") prev();
+      if (e.key === "Escape") {
+        if (fullview) setFullview(false);
+        else onClose();
+      } else if (e.key === "ArrowLeft") prev();
       else if (e.key === "ArrowRight") next();
     };
     window.addEventListener("keydown", onKey);
@@ -102,6 +108,15 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           ) : (
             <img src={item.img} alt={item.title} />
           )}
+          <button
+            className="woi-fullscreen-btn"
+            aria-label="View full screen"
+            onClick={() => setFullview(true)}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round">
+              <path d="M9 3H4a1 1 0 0 0-1 1v5M15 3h5a1 1 0 0 1 1 1v5M9 21H4a1 1 0 0 1-1-1v-5M15 21h5a1 1 0 0 0 1-1v-5" />
+            </svg>
+          </button>
         </div>
         <div className="woi-lightbox-panel">
           <div style={{ display: "flex", alignItems: "center", gap: 11 }}>
@@ -182,6 +197,35 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           </a>
         </div>
       </div>
+      {fullview && (
+        <div
+          className="woi-fullview"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${item.title} — full screen`}
+          onClick={(e) => {
+            e.stopPropagation();
+            setFullview(false);
+          }}
+        >
+          {item.isVideo ? (
+            <video src="/assets/video-bumper.mp4" muted loop playsInline autoPlay />
+          ) : (
+            <img src={item.img} alt={item.title} />
+          )}
+          <button
+            className="woi-lightbox-close"
+            style={{ background: "rgba(5,13,33,.55)", borderColor: "rgba(255,255,255,.25)" }}
+            aria-label="Exit full screen"
+            onClick={(e) => {
+              e.stopPropagation();
+              setFullview(false);
+            }}
+          >
+            ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }
