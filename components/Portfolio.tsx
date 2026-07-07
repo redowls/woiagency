@@ -43,8 +43,8 @@ export default function Portfolio() {
   return (
     <div
       id="portfolio"
+      className="woi-section"
       style={{
-        padding: "72px 48px",
         background: "#f4f7fd",
         color: "#0b1c3d",
         scrollMarginTop: 80,
@@ -108,7 +108,7 @@ export default function Portfolio() {
           </button>
         ))}
       </div>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 18 }}>
+      <div className="woi-portfolio-grid">
         {items.map((it, i) => (
           <div key={it.title} className="woi-card" onClick={() => setSelected(i)}>
             <div style={{ width: "100%", height: "100%", background: "#eef2fa", overflow: "hidden" }}>

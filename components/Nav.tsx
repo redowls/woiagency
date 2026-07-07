@@ -12,6 +12,7 @@ const NAV_ITEMS = [
 
 export default function Nav() {
   const [active, setActive] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
   // clicking a pill locks the scroll spy briefly so smooth-scroll
   // doesn't flicker the active state on its way to the section
   const lockUntil = useRef(0);
@@ -30,6 +31,40 @@ export default function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const go = (id: string) => {
+    lockUntil.current = performance.now() + 900;
+    setActive(id);
+    setMenuOpen(false);
+    scrollToSection(id);
+  };
+
+  const pill = (n: (typeof NAV_ITEMS)[number]) => (
+    <a
+      key={n.id}
+      href={`#${n.id}`}
+      className={`woi-nav-pill${active === n.id ? " is-active" : ""}`}
+      onClick={(e) => {
+        e.preventDefault();
+        go(n.id);
+      }}
+    >
+      {n.label}
+    </a>
+  );
+
+  const cta = (
+    <a
+      href="#contact"
+      className="woi-nav-cta"
+      onClick={(e) => {
+        e.preventDefault();
+        go("contact");
+      }}
+    >
+      Contact Us
+    </a>
+  );
+
   return (
     <nav className="woi-nav">
       <a
@@ -37,9 +72,7 @@ export default function Nav() {
         className="woi-brand"
         onClick={(e) => {
           e.preventDefault();
-          lockUntil.current = performance.now() + 900;
-          setActive("home");
-          scrollToSection("home");
+          go("home");
         }}
       >
         <img
@@ -51,33 +84,24 @@ export default function Nav() {
           WOI Agency
         </span>
       </a>
-      {NAV_ITEMS.map((n) => (
-        <a
-          key={n.id}
-          href={`#${n.id}`}
-          className={`woi-nav-pill${active === n.id ? " is-active" : ""}`}
-          onClick={(e) => {
-            e.preventDefault();
-            lockUntil.current = performance.now() + 900;
-            setActive(n.id);
-            scrollToSection(n.id);
-          }}
-        >
-          {n.label}
-        </a>
-      ))}
-      <a
-        href="#contact"
-        className="woi-nav-cta"
-        onClick={(e) => {
-          e.preventDefault();
-          lockUntil.current = performance.now() + 900;
-          setActive("contact");
-          scrollToSection("contact");
-        }}
+      <div className="woi-nav-links">
+        {NAV_ITEMS.map(pill)}
+        {cta}
+      </div>
+      <button
+        className="woi-nav-toggle"
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((o) => !o)}
       >
-        Contact Us
-      </a>
+        {menuOpen ? "✕" : "☰"}
+      </button>
+      {menuOpen && (
+        <div className="woi-nav-menu">
+          {NAV_ITEMS.map(pill)}
+          {cta}
+        </div>
+      )}
     </nav>
   );
 }

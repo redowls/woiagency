@@ -6,8 +6,9 @@ creation). Built with **Next.js 15** (App Router, TypeScript), converted from
 the design reference in [`Initial/`](Initial/).
 
 Single scrolling page: Nav → Hero (with 3D portfolio carousel) → Services →
-Portfolio (filterable) → Contact/Footer. Desktop-only layout (min-width
-1100px), Montserrat via `next/font`.
+Portfolio (filterable) → Contact/Footer. Fully responsive from desktop to
+mobile (hamburger nav under 880px, adaptive grids, stacked lightbox),
+Montserrat via `next/font`.
 
 ## Getting started
 

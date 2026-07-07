@@ -30,7 +30,8 @@ export default function Services() {
   return (
     <div
       id="services"
-      style={{ padding: "72px 48px", background: "#081530", scrollMarginTop: 80 }}
+      className="woi-section"
+      style={{ background: "#081530", scrollMarginTop: 80 }}
     >
       <p
         style={{
@@ -45,17 +46,7 @@ export default function Services() {
       >
         Services
       </p>
-      <h2
-        style={{
-          margin: "0 0 10px",
-          fontSize: 40,
-          fontWeight: 700,
-          letterSpacing: "-1px",
-          textAlign: "center",
-        }}
-      >
-        What We Do
-      </h2>
+      <h2 className="woi-h2">What We Do</h2>
       <p
         style={{
           margin: "0 auto 40px",
@@ -68,7 +59,7 @@ export default function Services() {
       >
         Five core services to build and grow your brand.
       </p>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(5,1fr)", gap: 18 }}>
+      <div className="woi-services-grid">
         {SERVICES.map((s) => (
           <div key={s.title} className="woi-service-card">
             <div

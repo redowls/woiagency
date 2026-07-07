@@ -144,6 +144,22 @@ export default function Hero() {
     wrap.addEventListener("pointerup", onPointerUp);
     wrap.addEventListener("pointercancel", onPointerUp);
 
+    // touch devices scroll natively — pause the auto-advance while the
+    // finger is down and briefly after, so it doesn't fight the fling
+    let touchResume = 0;
+    const onTouchStart = () => {
+      carHover.current = true;
+      clearTimeout(touchResume);
+    };
+    const onTouchEnd = () => {
+      clearTimeout(touchResume);
+      touchResume = window.setTimeout(() => {
+        carHover.current = false;
+      }, 1500);
+    };
+    wrap.addEventListener("touchstart", onTouchStart, { passive: true });
+    wrap.addEventListener("touchend", onTouchEnd, { passive: true });
+
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
@@ -152,6 +168,9 @@ export default function Hero() {
       wrap.removeEventListener("pointermove", onPointerMove);
       wrap.removeEventListener("pointerup", onPointerUp);
       wrap.removeEventListener("pointercancel", onPointerUp);
+      wrap.removeEventListener("touchstart", onTouchStart);
+      wrap.removeEventListener("touchend", onTouchEnd);
+      clearTimeout(touchResume);
     };
   }, []);
 
@@ -168,15 +187,8 @@ export default function Hero() {
         target.current = { ...center.current };
         mouseIn.current = false;
       }}
+      className="woi-hero"
       style={{
-        position: "relative",
-        overflow: "hidden",
-        padding: "88px 48px 0",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
-        gap: 24,
         background:
           "radial-gradient(ellipse 90% 70% at 50% -10%,rgba(10,72,255,.4),transparent 60%),radial-gradient(ellipse 60% 50% at 85% 100%,rgba(1,189,249,.18),transparent 65%),#050d21",
       }}
@@ -199,37 +211,13 @@ export default function Hero() {
         />
       ))}
       <img src="/assets/woi-logo-new.png" alt="WOI Agency logo" className="woi-hero-logo" />
-      <h1
-        style={{
-          position: "relative",
-          zIndex: 1,
-          margin: 0,
-          fontSize: 76,
-          lineHeight: 1.05,
-          fontWeight: 700,
-          letterSpacing: "-2.5px",
-          maxWidth: 900,
-          textWrap: "pretty",
-        }}
-      >
-        Ride the Wave. Own the Innovation.
-      </h1>
-      <p
-        style={{
-          position: "relative",
-          zIndex: 1,
-          margin: 0,
-          fontSize: 17,
-          lineHeight: 1.7,
-          color: "#93a4c8",
-          maxWidth: 640,
-        }}
-      >
+      <h1 className="woi-h1">Ride the Wave. Own the Innovation.</h1>
+      <p className="woi-hero-sub">
         WOI Agency — Wave of Innovation. A creative content studio for graphic
         design, branding, motion graphics, and social media. From ideas to work
         that makes an impact.
       </p>
-      <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 14, marginTop: 10 }}>
+      <div className="woi-hero-cta-row">
         <a
           href="#portfolio"
           className="woi-btn-solid"
@@ -253,7 +241,7 @@ export default function Hero() {
       </div>
 
       {/* carousel fused with hero: one continuous background */}
-      <div style={{ position: "relative", alignSelf: "stretch", margin: "0 -48px" }}>
+      <div className="woi-car-outer">
         <div
           ref={wrapRef}
           className="woi-car-wrap"

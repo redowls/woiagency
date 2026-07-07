@@ -2,13 +2,10 @@ export default function Contact() {
   return (
     <div
       id="contact"
+      className="woi-contact-section"
       style={{
-        position: "relative",
-        overflow: "hidden",
-        padding: "80px 48px 0",
         background:
           "radial-gradient(ellipse 80% 60% at 50% 110%,rgba(10,72,255,.35),transparent 65%),#050d21",
-        scrollMarginTop: 80,
       }}
     >
       <div
@@ -25,9 +22,7 @@ export default function Contact() {
           alt=""
           style={{ width: 72, height: 72, borderRadius: 20, objectFit: "cover" }}
         />
-        <h2 style={{ margin: 0, fontSize: 48, fontWeight: 700, letterSpacing: "-1.5px" }}>
-          Ready to Create Together?
-        </h2>
+        <h2 className="woi-contact-h2">Ready to Create Together?</h2>
         <p
           style={{
             margin: 0,
