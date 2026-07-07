@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#050d21;font-family:'Montserrat',sans-serif;font-weight:500}
+html{scroll-behavior:smooth}
+@keyframes woi-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.woi-card:hover .woi-cap{opacity:1 !important;transform:translateY(0) !important}
+</style>
+</helmet>
+
+<div style="background:#050d21;color:#f2f6ff;min-width:1100px" data-screen-label="WOI Agency One-Page">
+
+  <!-- ============ NAV ============ -->
+  <nav style="position:sticky;top:14px;z-index:50;display:flex;align-items:center;gap:8px;margin:14px 28px 0;padding:10px 14px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04));backdrop-filter:blur(28px) saturate(1.8);border:1px solid rgba(255,255,255,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 12px 40px rgba(0,0,0,.35)">
+    <a href="#home" style="display:flex;align-items:center;gap:12px;margin-right:auto;text-decoration:none;color:#f2f6ff;padding:4px 8px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)" style-hover="transform:scale(1.04)">
+      <img src="assets/woi-logo-new.png" alt="WOI" style="width:38px;height:38px;border-radius:12px;object-fit:cover">
+      <span style="font-weight:700;font-size:17px;letter-spacing:-0.2px">WOI Agency</span>
+    </a>
+    <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="4">
+      <a href="{{ n.href }}" onClick="{{ n.onClick }}" style="{{ n.style }}" style-hover="color:#fff;background:rgba(255,255,255,.16);transform:translateY(-2px);boxShadow:inset 0 1px 0 rgba(255,255,255,.15)" style-active="transform:translateY(0) scale(.94)">{{ n.label }}</a>
+    </sc-for>
+    <a href="#contact" style="font-size:14px;font-weight:700;color:#fff;background:linear-gradient(120deg,#0a48ff,#01BDF9);padding:11px 26px;border-radius:999px;text-decoration:none;box-shadow:0 4px 18px rgba(0,140,255,.35),inset 0 1px 0 rgba(255,255,255,.3);margin-left:6px;transition:all .3s cubic-bezier(.34,1.56,.64,1)" style-hover="transform:scale(1.06);boxShadow:0 8px 28px rgba(1,189,249,.55),inset 0 1px 0 rgba(255,255,255,.3)" style-active="transform:scale(.95)">Contact Us</a>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <div id="home" onMouseMove="{{ onHeroMove }}" onMouseLeave="{{ onHeroLeave }}" style="position:relative;overflow:hidden;padding:88px 48px 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:24px;background:radial-gradient(ellipse 90% 70% at 50% -10%,rgba(10,72,255,.4),transparent 60%),radial-gradient(ellipse 60% 50% at 85% 100%,rgba(1,189,249,.18),transparent 65%),#050d21">
+    <div ref="{{ orb1Ref }}" style="position:absolute;top:0;left:0;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(10,72,255,.55),rgba(10,72,255,0) 70%);filter:blur(60px);pointer-events:none;will-change:transform"></div>
+    <div ref="{{ orb2Ref }}" style="position:absolute;top:0;left:0;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(1,189,249,.45),rgba(1,189,249,0) 70%);filter:blur(50px);pointer-events:none;will-change:transform"></div>
+    <div ref="{{ orb3Ref }}" style="position:absolute;top:0;left:0;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(121,224,252,.35),rgba(121,224,252,0) 70%);filter:blur(36px);pointer-events:none;will-change:transform"></div>
+    <img src="assets/woi-logo-new.png" alt="WOI Agency logo" style="position:relative;z-index:1;width:150px;height:150px;border-radius:36px;object-fit:cover;box-shadow:0 30px 70px rgba(0,110,255,.5);animation:woi-float 6s ease-in-out infinite">
+    <h1 style="position:relative;z-index:1;margin:0;font-size:76px;line-height:1.05;font-weight:700;letter-spacing:-2.5px;max-width:900px;text-wrap:pretty">{{ tagline }}</h1>
+    <p style="position:relative;z-index:1;margin:0;font-size:17px;line-height:1.7;color:#93a4c8;max-width:640px">WOI Agency — Wave of Innovation. A creative content studio for graphic design, branding, motion graphics, and social media. From ideas to work that makes an impact.</p>
+    <div style="position:relative;z-index:1;display:flex;gap:14px;margin-top:10px">
+      <a href="#portfolio" style="font-size:15px;font-weight:700;color:#050d21;background:#fff;padding:15px 32px;border-radius:999px;text-decoration:none">View Portfolio</a>
+      <a href="#contact" style="font-size:15px;font-weight:700;color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:15px 32px;border-radius:999px;text-decoration:none" style-hover="borderColor:rgba(255,255,255,.7)">Free Consultation</a>
+    </div>
+
+    <!-- carousel fused with hero: one continuous background -->
+    <div style="position:relative;align-self:stretch;margin:0 -48px">
+    <div ref="{{ wrapRef }}" onMouseEnter="{{ onCarEnter }}" onMouseLeave="{{ onCarLeave }}" style="padding:48px 0 150px;overflow-x:auto;overflow-y:hidden;perspective:1400px;scrollbar-width:none;cursor:grab">
+    <div ref="{{ trackRef }}" onMouseOver="{{ onCardOver }}" style="display:flex;width:max-content;transform-style:preserve-3d">
+      <img src="assets/poster-bogor-depok.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-architecture.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/banner-cover.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/logo-dapoer-lien.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;background:#fff;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-final.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-why-binus.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-hiring.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/logo-piring-sewu.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;background:#fff;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-bogor-depok.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-architecture.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/banner-cover.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/logo-dapoer-lien.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;background:#fff;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-final.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-why-binus.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/poster-hiring.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+      <img src="assets/logo-piring-sewu.png" alt="" style="height:250px;border-radius:20px;margin-right:18px;background:#fff;will-change:transform;-webkit-box-reflect:below 14px linear-gradient(transparent 52%,rgba(255,255,255,.28))">
+    </div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(to bottom,rgba(5,13,33,0),rgba(5,13,33,.9) 65%,#050d21);pointer-events:none"></div>
+    </div>
+  </div>
+
+  <!-- ============ SERVICES (dark) ============ -->
+  <div id="services" style="padding:72px 48px;background:#081530;scroll-margin-top:80px">
+    <p style="margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#01BDF9;text-align:center">Services</p>
+    <h2 style="margin:0 0 10px;font-size:40px;font-weight:700;letter-spacing:-1px;text-align:center">What We Do</h2>
+    <p style="margin:0 auto 40px;font-size:15px;color:#93a4c8;text-align:center;max-width:540px;line-height:1.65">Five core services to build and grow your brand.</p>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;gap:13px" style-hover="borderColor:rgba(1,189,249,.5);background:rgba(10,72,255,.08)">
+        <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#0a48ff,#01BDF9);display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px">Aa</div>
+        <h3 style="margin:6px 0 0;font-size:17px;font-weight:700">Graphic Design</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#93a4c8">Posters, flyers, and banners for print and digital promotion.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;gap:13px" style-hover="borderColor:rgba(1,189,249,.5);background:rgba(10,72,255,.08)">
+        <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#0a48ff,#01BDF9);display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px">◆</div>
+        <h3 style="margin:6px 0 0;font-size:17px;font-weight:700">Logo &amp; Branding</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#93a4c8">A strong, consistent, and memorable visual identity.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;gap:13px" style-hover="borderColor:rgba(1,189,249,.5);background:rgba(10,72,255,.08)">
+        <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#0a48ff,#01BDF9);display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px">▶</div>
+        <h3 style="margin:6px 0 0;font-size:17px;font-weight:700">Motion Graphics</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#93a4c8">Bumper videos and animation to strengthen your digital content.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;gap:13px" style-hover="borderColor:rgba(1,189,249,.5);background:rgba(10,72,255,.08)">
+        <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#0a48ff,#01BDF9);display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px">＠</div>
+        <h3 style="margin:6px 0 0;font-size:17px;font-weight:700">Social Media Management</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#93a4c8">End-to-end content planning and social media management.</p>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:22px;padding:30px 26px;display:flex;flex-direction:column;gap:13px" style-hover="borderColor:rgba(1,189,249,.5);background:rgba(10,72,255,.08)">
+        <div style="width:50px;height:50px;border-radius:14px;background:linear-gradient(135deg,#0a48ff,#01BDF9);display:grid;place-items:center;color:#fff;font-weight:700;font-size:18px">✦</div>
+        <h3 style="margin:6px 0 0;font-size:17px;font-weight:700">Content Creation</h3>
+        <p style="margin:0;font-size:13.5px;line-height:1.65;color:#93a4c8">Photo, video, and copywriting content made for your brand.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PORTFOLIO (light, work-forward) ============ -->
+  <div id="portfolio" style="padding:72px 48px;background:#f4f7fd;color:#0b1c3d;scroll-margin-top:80px">
+    <p style="margin:0 0 8px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#0a48ff;text-align:center">Portfolio</p>
+    <h2 style="margin:0 0 24px;font-size:40px;font-weight:700;letter-spacing:-1px;text-align:center">Selected Works</h2>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+        <button style="{{ c.style }}" onClick="{{ c.onClick }}">{{ c.label }}</button>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+      <sc-for list="{{ items }}" as="it" hint-placeholder-count="8">
+        <div class="woi-card" style="position:relative;border-radius:20px;overflow:hidden;box-shadow:0 4px 22px rgba(11,28,61,.08);height:270px" style-hover="boxShadow:0 12px 34px rgba(10,72,255,.18);transform:translateY(-4px)">
+          <div style="width:100%;height:100%;background:#eef2fa;overflow:hidden">
+            <sc-if value="{{ it.isVideo }}" hint-placeholder-val="{{ false }}">
+              <video src="assets/video-bumper.mp4" muted="{{ true }}" loop="{{ true }}" playsInline="{{ true }}" autoPlay="{{ true }}" style="width:100%;height:100%;object-fit:cover"></video>
+            </sc-if>
+            <sc-if value="{{ it.notVideo }}" hint-placeholder-val="{{ true }}">
+              <img src="{{ it.img }}" alt="{{ it.title }}" style="width:100%;height:100%;object-fit:cover;object-position:top">
+            </sc-if>
+          </div>
+          <div class="woi-cap" style="position:absolute;left:0;right:0;bottom:0;padding:44px 18px 16px;background:linear-gradient(to top,rgba(5,13,33,.88),rgba(5,13,33,.45) 55%,transparent);display:flex;flex-direction:column;gap:3px;opacity:0;transform:translateY(10px);transition:opacity .35s ease,transform .35s ease;pointer-events:none">
+            <span style="font-size:14px;font-weight:700;color:#fff">{{ it.title }}</span>
+            <span style="font-size:12px;color:#a9bbe0">{{ it.cat }}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ============ CONTACT (dark) ============ -->
+  <div id="contact" style="position:relative;overflow:hidden;padding:80px 48px 0;background:radial-gradient(ellipse 80% 60% at 50% 110%,rgba(10,72,255,.35),transparent 65%),#050d21;scroll-margin-top:80px">
+    <div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px">
+      <img src="assets/woi-logo-new.png" alt="" style="width:72px;height:72px;border-radius:20px;object-fit:cover">
+      <h2 style="margin:0;font-size:48px;font-weight:700;letter-spacing:-1.5px">Ready to Create Together?</h2>
+      <p style="margin:0;font-size:15.5px;color:#93a4c8;max-width:520px;line-height:1.7">Tell us what your brand needs — the first consultation is free, with no commitment.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:10px">
+        <a href="mailto:hello@woiagency.id" style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#050d21;background:#fff;padding:15px 30px;border-radius:999px;text-decoration:none">✉ hello@woiagency.id</a>
+        <a href="tel:+6281234567890" style="display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#fff;border:1.5px solid rgba(255,255,255,.3);padding:15px 30px;border-radius:999px;text-decoration:none" style-hover="borderColor:rgba(255,255,255,.7)">✆ +62 812-3456-7890</a>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:14px">
+        <a href="https://instagram.com/woiagency" target="_blank" aria-label="Instagram" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;text-decoration:none" style-hover="background:rgba(10,72,255,.35)">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff" stroke="none"></circle></svg>
+        </a>
+        <a href="https://youtube.com/@woiagency" target="_blank" aria-label="YouTube" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;text-decoration:none" style-hover="background:rgba(10,72,255,.35)">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="#fff"><rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="#fff" stroke-width="2"></rect><path d="M10 9.5v5l4.5-2.5z"></path></svg>
+        </a>
+        <a href="https://linkedin.com/company/woiagency" target="_blank" aria-label="LinkedIn" style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;text-decoration:none;color:#fff;font-weight:700;font-size:15px" style-hover="background:rgba(10,72,255,.35)">in</a>
+      </div>
+    </div>
+    <p style="margin:64px 0 0;padding:24px 0;border-top:1px solid rgba(255,255,255,.08);font-size:13px;color:#5f6f92;text-align:center">© 2026 WOI Agency — Wave of Innovation. All rights reserved.</p>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;tagline&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Ride the Wave. Own the Innovation.&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Hero&quot;}, &quot;defaultCategory&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;All&quot;, &quot;options&quot;: [&quot;All&quot;, &quot;Poster &amp; Flyer&quot;, &quot;Banner&quot;, &quot;Logo&quot;, &quot;Animation&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Portfolio&quot;}}">
+class Component extends DCLogic {
+  state = { filter: 'All', nav: 'home' };
+
+  // defined as a class field so orb ref callbacks (which run before
+  // componentDidMount) can always attach their elements
+  _orbs = [
+    { el: null, ox: -260, oy: -260, ax: 210, ay: 130, fx: 0.00011, fy: 0.00007, ph: 0.0, pull: 0.22, lag: 0.030, sAmp: 0.10, sf: 0.00013, mx: 0, my: 0 },
+    { el: null, ox: -60,  oy: -220, ax: 150, ay: 170, fx: 0.00008, fy: 0.00013, ph: 2.1, pull: 0.38, lag: 0.045, sAmp: 0.14, sf: 0.00017, mx: 0, my: 0 },
+    { el: null, ox: -240, oy: -40,  ax: 260, ay: 110, fx: 0.00013, fy: 0.00009, ph: 4.2, pull: 0.60, lag: 0.065, sAmp: 0.18, sf: 0.00010, mx: 0, my: 0 }
+  ];
+
+  componentDidMount() {
+    const d = this.props.defaultCategory;
+    if (d && d !== 'All') this.setState({ filter: d });
+
+    // scroll spy: keep the toolbar's active pill in sync with the section in view
+    this._navLock = 0;
+    this._onScroll = () => {
+      if (performance.now() < this._navLock) return;
+      let cur = 'home';
+      for (const id of ['home', 'services', 'portfolio', 'contact']) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= 140) cur = id;
+      }
+      if (cur !== this.state.nav) this.setState({ nav: cur });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+
+    // ambient drifting orbs + gentle mouse influence (parallax)
+    // each orb wanders on its own slow Lissajous path; the mouse only *sways*
+    // it from that path, so motion stays alive and elegant even when idle.
+    this._target = { x: 640, y: 300 };
+    this._center = { x: 640, y: 300 };
+    const tick = (t) => {
+      // curved 3D carousel, JS-scrolled: auto-advances, pauses + expands hovered card,
+      // and lets the user scroll/drag left-right
+      if (this._track && this._wrap) {
+        const wrap = this._wrap;
+        const half = this._track.scrollWidth / 2;
+        const dt = this._lastT ? Math.min(64, t - this._lastT) : 16;
+        let p = wrap.scrollLeft;
+        if (!this._carHover && !this._dragging && half > 0) p += dt * (half / 42000);
+        if (half > 0) { if (p >= half) p -= half; else if (p < 0) p += half; }
+        wrap.scrollLeft = p;
+        const mid = wrap.clientWidth / 2;
+        for (const card of this._track.children) {
+          const cx = card.offsetLeft + card.offsetWidth / 2 - p;
+          const k = Math.max(-1.15, Math.min(1.15, (cx - mid) / mid));
+          const h = (card._h || 0) + ((card === this._hoverCard ? 1 : 0) - (card._h || 0)) * 0.14;
+          card._h = h;
+          const rot = -k * 34 * (1 - h);
+          const dip = k * k * 46 * (1 - h) - 10 * h;
+          const back = -Math.abs(k) * 120 * (1 - h) + 90 * h;
+          const sc = (1 - Math.abs(k) * 0.08) * (1 - h) + 1.08 * h;
+          card.style.transform = `translateY(${dip}px) translateZ(${back}px) rotateY(${rot}deg) scale(${sc})`;
+        }
+      }
+      this._lastT = t;
+      // keep portfolio videos playing (autoplay race + remount on filter change)
+      if (!this._vidCheck || t - this._vidCheck > 1000) {
+        this._vidCheck = t;
+        document.querySelectorAll('video').forEach(v => {
+          if (v.paused) { v.muted = true; v.play().catch(() => {}); }
+        });
+      }
+      const dx = this._target.x - this._center.x;
+      const dy = this._target.y - this._center.y;
+      // blend factor: eases toward 1 while cursor is in the hero, back to 0 when it leaves
+      this._in = (this._in || 0) + ((this._mouseIn ? 1 : 0) - (this._in || 0)) * 0.05;
+      for (const o of this._orbs) {
+        if (!o.el) continue;
+        // damped mouse follow — full pull while cursor is inside, parallax-scaled
+        const pull = o.pull + (1 - o.pull) * this._in * 0.9;
+        o.mx += (dx * pull - o.mx) * o.lag;
+        o.my += (dy * pull - o.my) * o.lag;
+        // autonomous drift, damped while following the cursor
+        const wAmp = 1 - this._in * 0.75;
+        const wx = this._center.x + Math.sin(t * o.fx + o.ph) * o.ax * wAmp;
+        const wy = this._center.y + Math.cos(t * o.fy + o.ph * 1.7) * o.ay * wAmp;
+        // slow breathing
+        const s = 1 + Math.sin(t * o.sf + o.ph) * o.sAmp;
+        o.el.style.transform = `translate(${wx + o.mx + o.ox}px, ${wy + o.my + o.oy}px) scale(${s})`;
+      }
+      this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+    // keep drift centered on the hero's actual size
+    this._onResize = () => {
+      const hero = document.getElementById('home');
+      if (hero) this._center = { x: hero.offsetWidth / 2, y: hero.offsetHeight / 2 };
+    };
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  get data() {
+    return [
+      { img: 'assets/poster-architecture.png', title: 'Architecture Study Program', cat: 'Poster & Flyer' },
+      { img: 'assets/poster-final.png', title: 'Scholarship Campaign', cat: 'Poster & Flyer' },
+      { img: 'assets/poster-hiring.png', title: "We're Hiring", cat: 'Poster & Flyer' },
+      { img: 'assets/poster-bogor-depok.png', title: 'Bogor–Depok Feed', cat: 'Poster & Flyer' },
+      { img: 'assets/poster-beasiswa.png', title: 'OSIS Scholarship', cat: 'Poster & Flyer' },
+      { img: 'assets/poster-why-binus.png', title: 'Why BINUS (A3)', cat: 'Poster & Flyer' },
+      { img: 'assets/banner-cover.png', title: 'Ambassador Cover', cat: 'Banner' },
+      { img: 'assets/banner-kemanggisan.png', title: 'Kemanggisan Banner', cat: 'Banner' },
+      { img: 'assets/banner-80x200.png', title: '80×200 Banner', cat: 'Banner' },
+      { img: 'assets/banner-a5.png', title: 'A5 Print Materials', cat: 'Banner' },
+      { img: 'assets/logo-piring-sewu.png', title: 'Piring Sewu', cat: 'Logo' },
+      { img: 'assets/logo-dapoer-lien.png', title: 'Dapoer Lien', cat: 'Logo' },
+      { img: 'assets/logo-1.png', title: 'Kacang Ndeso', cat: 'Logo' },
+      { img: 'assets/logo-2.png', title: 'Lens of Joy', cat: 'Logo' },
+      { isVideo: true, img: '', title: 'Bumper Video', cat: 'Animation' }
+    ];
+  }
+
+  renderVals() {
+    const catNames = ['All', 'Poster & Flyer', 'Banner', 'Logo', 'Animation'];
+    const base = { fontFamily: "'Montserrat',sans-serif", fontSize: '13px', fontWeight: 700, padding: '10px 20px', cursor: 'pointer', whiteSpace: 'nowrap', borderRadius: '999px', transition: 'all .25s ease' };
+    const on = { ...base, background: 'linear-gradient(120deg,#0a48ff,#01BDF9)', color: '#fff', border: 'none', boxShadow: '0 4px 14px rgba(10,72,255,.3)' };
+    const off = { ...base, background: '#fff', color: '#5f6f92', border: '1.5px solid #dde5f2' };
+
+    const navBase = { fontSize: '14px', textDecoration: 'none', padding: '9px 18px', borderRadius: '999px', transition: 'all .3s cubic-bezier(.34,1.56,.64,1)' };
+    const navOn = { ...navBase, fontWeight: 600, color: '#f2f6ff', background: 'rgba(255,255,255,.12)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.15)' };
+    const navOff = { ...navBase, fontWeight: 500, color: '#93a4c8' };
+
+    return {
+      tagline: this.props.tagline ?? 'Ride the Wave. Own the Innovation.',
+      navItems: [
+        { id: 'home', label: 'Home' },
+        { id: 'services', label: 'Services' },
+        { id: 'portfolio', label: 'Portfolio' },
+        { id: 'contact', label: 'Contact' }
+      ].map(n => ({
+        href: '#' + n.id,
+        label: n.label,
+        style: this.state.nav === n.id ? navOn : navOff,
+        onClick: () => {
+          this._navLock = performance.now() + 900; // let smooth-scroll finish without spy flicker
+          this.setState({ nav: n.id });
+        }
+      })),
+      onHeroMove: (e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        this._target = { x: e.clientX - r.left, y: e.clientY - r.top };
+        this._mouseIn = true;
+      },
+      onHeroLeave: () => { this._target = { ...this._center }; this._mouseIn = false; },
+      trackRef: (el) => { this._track = el; },
+      wrapRef: (el) => {
+        this._wrap = el;
+        if (el && !el._woiBound) {
+          el._woiBound = true;
+          // vertical wheel scrolls the carousel horizontally
+          el.addEventListener('wheel', (e) => {
+            if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); el.scrollLeft += e.deltaY; }
+          }, { passive: false });
+          // drag-to-scroll with mouse
+          el.addEventListener('pointerdown', (e) => {
+            if (e.pointerType !== 'mouse') return;
+            e.preventDefault();
+            this._dragging = true; this._dragX = e.clientX; this._dragS = el.scrollLeft;
+            el.setPointerCapture(e.pointerId); el.style.cursor = 'grabbing';
+          });
+          el.addEventListener('pointermove', (e) => {
+            if (this._dragging) el.scrollLeft = this._dragS - (e.clientX - this._dragX);
+          });
+          const up = () => { this._dragging = false; el.style.cursor = 'grab'; };
+          el.addEventListener('pointerup', up);
+          el.addEventListener('pointercancel', up);
+        }
+      },
+      onCarEnter: () => { this._carHover = true; },
+      onCarLeave: () => { this._carHover = false; this._hoverCard = null; },
+      onCardOver: (e) => { this._hoverCard = (e.target.closest && e.target.closest('img')) || null; },
+      orb1Ref: (el) => { this._orbs[0].el = el; },
+      orb2Ref: (el) => { this._orbs[1].el = el; },
+      orb3Ref: (el) => { this._orbs[2].el = el; },
+      cats: catNames.map(c => ({
+        label: c,
+        style: this.state.filter === c ? on : off,
+        onClick: () => this.setState({ filter: c })
+      })),
+      items: this.data
+        .filter(it => this.state.filter === 'All' || it.cat === this.state.filter)
+        .map(it => ({ ...it, notVideo: !it.isVideo }))
+    };
+  }
+}
+</script>
+</body>
+</html>
