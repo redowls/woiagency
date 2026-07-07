@@ -1,0 +1,284 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050d21;
+  color: #f2f6ff;
+  font-weight: 500;
+}
+
+.woi-page {
+  min-width: 1100px;
+}
+
+@keyframes woi-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* ============ Nav ============ */
+.woi-nav {
+  position: sticky;
+  top: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 28px 0;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(28px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.woi-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: auto;
+  text-decoration: none;
+  color: #f2f6ff;
+  padding: 4px 8px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.woi-brand:hover {
+  transform: scale(1.04);
+}
+
+.woi-nav-pill {
+  font-size: 14px;
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-weight: 500;
+  color: #93a4c8;
+}
+
+.woi-nav-pill.is-active {
+  font-weight: 600;
+  color: #f2f6ff;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.woi-nav-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.woi-nav-pill:active {
+  transform: translateY(0) scale(0.94);
+}
+
+.woi-nav-cta {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(120deg, #0a48ff, #01bdf9);
+  padding: 11px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(0, 140, 255, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  margin-left: 6px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.woi-nav-cta:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 28px rgba(1, 189, 249, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.woi-nav-cta:active {
+  transform: scale(0.95);
+}
+
+/* ============ Hero ============ */
+.woi-hero-logo {
+  position: relative;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  border-radius: 36px;
+  object-fit: cover;
+  box-shadow: 0 30px 70px rgba(0, 110, 255, 0.5);
+  animation: woi-float 6s ease-in-out infinite;
+}
+
+.woi-btn-solid {
+  font-size: 15px;
+  font-weight: 700;
+  color: #050d21;
+  background: #fff;
+  padding: 15px 32px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.woi-btn-outline {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  padding: 15px 32px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.woi-btn-outline:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.woi-car-wrap {
+  padding: 48px 0 150px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  perspective: 1400px;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.woi-car-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.woi-car-img {
+  height: 250px;
+  border-radius: 20px;
+  margin-right: 18px;
+  will-change: transform;
+  -webkit-box-reflect: below 14px linear-gradient(transparent 52%, rgba(255, 255, 255, 0.28));
+}
+
+/* ============ Services ============ */
+.woi-service-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.woi-service-card:hover {
+  border-color: rgba(1, 189, 249, 0.5);
+  background: rgba(10, 72, 255, 0.08);
+}
+
+/* ============ Portfolio ============ */
+.woi-filter-pill {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px 20px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 999px;
+  transition: all 0.25s ease;
+  background: #fff;
+  color: #5f6f92;
+  border: 1.5px solid #dde5f2;
+}
+
+.woi-filter-pill.is-active {
+  background: linear-gradient(120deg, #0a48ff, #01bdf9);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(10, 72, 255, 0.3);
+}
+
+.woi-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 22px rgba(11, 28, 61, 0.08);
+  height: 270px;
+}
+
+.woi-card:hover {
+  box-shadow: 0 12px 34px rgba(10, 72, 255, 0.18);
+  transform: translateY(-4px);
+}
+
+.woi-cap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 44px 18px 16px;
+  background: linear-gradient(to top, rgba(5, 13, 33, 0.88), rgba(5, 13, 33, 0.45) 55%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
+.woi-card:hover .woi-cap {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ Contact ============ */
+.woi-contact-pill-solid {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #050d21;
+  background: #fff;
+  padding: 15px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.woi-contact-pill-outline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  padding: 15px 30px;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.woi-contact-pill-outline:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.woi-social {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.woi-social:hover {
+  background: rgba(10, 72, 255, 0.35);
+}
