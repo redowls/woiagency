@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { PortfolioItem } from "@/lib/portfolio";
+import { scrollToSection } from "@/lib/scroll";
 
 type Props = {
   items: PortfolioItem[];
@@ -167,7 +168,16 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           <p style={{ margin: "0 0 12px", fontSize: 12.5, color: "#5f6f92" }}>
             Like what you see? Let's make something for your brand.
           </p>
-          <a href="#contact" className="woi-lightbox-cta" onClick={onClose}>
+          <a
+            href="#contact"
+            className="woi-lightbox-cta"
+            onClick={(e) => {
+              e.preventDefault();
+              onClose();
+              // wait for the modal to unmount so body scroll is unlocked
+              setTimeout(() => scrollToSection("contact"), 60);
+            }}
+          >
             Start a Project
           </a>
         </div>

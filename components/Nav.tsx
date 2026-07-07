@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { scrollToSection } from "@/lib/scroll";
 
 const NAV_ITEMS = [
   { id: "home", label: "Home" },
@@ -31,7 +32,16 @@ export default function Nav() {
 
   return (
     <nav className="woi-nav">
-      <a href="#home" className="woi-brand">
+      <a
+        href="#home"
+        className="woi-brand"
+        onClick={(e) => {
+          e.preventDefault();
+          lockUntil.current = performance.now() + 900;
+          setActive("home");
+          scrollToSection("home");
+        }}
+      >
         <img
           src="/assets/woi-logo-new.png"
           alt="WOI"
@@ -46,15 +56,26 @@ export default function Nav() {
           key={n.id}
           href={`#${n.id}`}
           className={`woi-nav-pill${active === n.id ? " is-active" : ""}`}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             lockUntil.current = performance.now() + 900;
             setActive(n.id);
+            scrollToSection(n.id);
           }}
         >
           {n.label}
         </a>
       ))}
-      <a href="#contact" className="woi-nav-cta">
+      <a
+        href="#contact"
+        className="woi-nav-cta"
+        onClick={(e) => {
+          e.preventDefault();
+          lockUntil.current = performance.now() + 900;
+          setActive("contact");
+          scrollToSection("contact");
+        }}
+      >
         Contact Us
       </a>
     </nav>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { CAROUSEL_IMAGES } from "@/lib/portfolio";
+import { scrollToSection } from "@/lib/scroll";
 
 type Orb = {
   el: HTMLDivElement | null;
@@ -229,10 +230,24 @@ export default function Hero() {
         that makes an impact.
       </p>
       <div style={{ position: "relative", zIndex: 1, display: "flex", gap: 14, marginTop: 10 }}>
-        <a href="#portfolio" className="woi-btn-solid">
+        <a
+          href="#portfolio"
+          className="woi-btn-solid"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection("portfolio");
+          }}
+        >
           View Portfolio
         </a>
-        <a href="#contact" className="woi-btn-outline">
+        <a
+          href="#contact"
+          className="woi-btn-outline"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToSection("contact");
+          }}
+        >
           Free Consultation
         </a>
       </div>
