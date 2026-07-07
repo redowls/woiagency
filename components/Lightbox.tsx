@@ -68,33 +68,32 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
       <button className="woi-lightbox-close" aria-label="Close" onClick={onClose}>
         ✕
       </button>
-      {items.length > 1 && (
-        <>
-          <button
-            className="woi-lightbox-nav"
-            style={{ left: 22 }}
-            aria-label="Previous work"
-            onClick={(e) => {
-              e.stopPropagation();
-              prev();
-            }}
-          >
-            ‹
-          </button>
-          <button
-            className="woi-lightbox-nav"
-            style={{ right: 22 }}
-            aria-label="Next work"
-            onClick={(e) => {
-              e.stopPropagation();
-              next();
-            }}
-          >
-            ›
-          </button>
-        </>
-      )}
-      <div className="woi-lightbox-dialog" onClick={(e) => e.stopPropagation()}>
+      <div className="woi-lightbox-shell">
+        {items.length > 1 && (
+          <>
+            <button
+              className="woi-lightbox-nav woi-lightbox-nav--prev"
+              aria-label="Previous work"
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+            >
+              ‹
+            </button>
+            <button
+              className="woi-lightbox-nav woi-lightbox-nav--next"
+              aria-label="Next work"
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+            >
+              ›
+            </button>
+          </>
+        )}
+        <div className="woi-lightbox-dialog" onClick={(e) => e.stopPropagation()}>
         <div className="woi-lightbox-media">
           {item.isVideo ? (
             <video
@@ -195,6 +194,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           >
             Start a Project
           </a>
+        </div>
         </div>
       </div>
       {fullview && (

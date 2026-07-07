@@ -389,10 +389,17 @@ body {
   animation: woi-fade-in 0.25s ease;
 }
 
-.woi-lightbox-dialog {
-  display: flex;
+/* positioning shell: the dialog plus the arrows that hug it */
+.woi-lightbox-shell {
+  position: relative;
   width: min(980px, 100%);
   height: min(620px, 88vh);
+}
+
+.woi-lightbox-dialog {
+  display: flex;
+  width: 100%;
+  height: 100%;
   border-radius: 22px;
   overflow: hidden;
   background: #fff;
@@ -529,6 +536,14 @@ body {
   display: grid;
   place-items: center;
   transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.woi-lightbox-nav--prev {
+  left: -70px;
+}
+
+.woi-lightbox-nav--next {
+  right: -70px;
 }
 
 .woi-lightbox-nav:hover {
@@ -674,10 +689,13 @@ body {
     padding: 14px;
   }
 
-  .woi-lightbox-dialog {
-    flex-direction: column;
+  .woi-lightbox-shell {
     width: 100%;
     height: 100%;
+  }
+
+  .woi-lightbox-dialog {
+    flex-direction: column;
     border-radius: 18px;
   }
 
@@ -706,11 +724,19 @@ body {
   }
 
   .woi-lightbox-nav {
-    top: 32%;
+    top: 26%;
     width: 40px;
     height: 40px;
     background: rgba(5, 13, 33, 0.55);
     border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  .woi-lightbox-nav--prev {
+    left: 10px;
+  }
+
+  .woi-lightbox-nav--next {
+    right: 10px;
   }
 }
 
