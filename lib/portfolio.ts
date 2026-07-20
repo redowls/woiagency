@@ -28,12 +28,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     desc: "Campaign poster for a scholarship program, designed to stop the scroll: a strong headline first, supporting details layered underneath to drive registrations.",
   },
   {
-    img: "/assets/poster-hiring.png",
-    title: "We're Hiring",
-    cat: "Poster & Flyer",
-    desc: "Recruitment feed post with a punchy headline and a clear role breakdown, built to attract applicants directly from social media.",
-  },
-  {
     img: "/assets/poster-bogor-depok.png",
     title: "Bogor–Depok Feed",
     cat: "Poster & Flyer",
@@ -115,6 +109,5 @@ export const CAROUSEL_IMAGES: { src: string; whiteBg?: boolean }[] = [
   { src: "/assets/logo-dapoer-lien.png", whiteBg: true },
   { src: "/assets/poster-final.png" },
   { src: "/assets/poster-why-binus.png" },
-  { src: "/assets/poster-hiring.png" },
   { src: "/assets/logo-piring-sewu.png", whiteBg: true },
 ];
