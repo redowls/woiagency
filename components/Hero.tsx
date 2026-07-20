@@ -1,8 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { CAROUSEL_IMAGES } from "@/lib/portfolio";
+import { useEffect, useRef, useState } from "react";
+import { CAROUSEL_IMAGES, PORTFOLIO_ITEMS, type PortfolioItem } from "@/lib/portfolio";
 import { scrollToSection } from "@/lib/scroll";
+import Lightbox from "@/components/Lightbox";
+
+// each carousel thumbnail maps back to its full portfolio entry so a click
+// can open the same Lightbox the Portfolio grid uses
+const CAROUSEL_ITEMS: PortfolioItem[] = CAROUSEL_IMAGES
+  .map((ci) => PORTFOLIO_ITEMS.find((it) => it.img === ci.src))
+  .filter((it): it is PortfolioItem => Boolean(it));
 
 type Orb = {
   el: HTMLDivElement | null;
@@ -46,6 +53,9 @@ export default function Hero() {
   const carHover = useRef(false);
   const hoverCard = useRef<HTMLImageElement | null>(null);
   const dragging = useRef(false);
+  // set while a drag/swipe is in progress so the ending click doesn't open the Lightbox
+  const gestureMoved = useRef(false);
+  const [selected, setSelected] = useState<number | null>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -127,13 +137,17 @@ export default function Hero() {
       if (e.pointerType !== "mouse") return;
       e.preventDefault();
       dragging.current = true;
+      gestureMoved.current = false;
       dragX = e.clientX;
       dragS = wrap.scrollLeft;
       wrap.setPointerCapture(e.pointerId);
       wrap.style.cursor = "grabbing";
     };
     const onPointerMove = (e: PointerEvent) => {
-      if (dragging.current) wrap.scrollLeft = dragS - (e.clientX - dragX);
+      if (!dragging.current) return;
+      const moved = e.clientX - dragX;
+      if (Math.abs(moved) > 6) gestureMoved.current = true;
+      wrap.scrollLeft = dragS - moved;
     };
     const onPointerUp = () => {
       dragging.current = false;
@@ -147,9 +161,23 @@ export default function Hero() {
     // touch devices scroll natively — pause the auto-advance while the
     // finger is down and briefly after, so it doesn't fight the fling
     let touchResume = 0;
-    const onTouchStart = () => {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const onTouchStart = (e: TouchEvent) => {
       carHover.current = true;
       clearTimeout(touchResume);
+      gestureMoved.current = false;
+      const t0 = e.touches[0];
+      if (t0) {
+        touchStartX = t0.clientX;
+        touchStartY = t0.clientY;
+      }
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      const t0 = e.touches[0];
+      if (!t0) return;
+      if (Math.abs(t0.clientX - touchStartX) > 8 || Math.abs(t0.clientY - touchStartY) > 8)
+        gestureMoved.current = true;
     };
     const onTouchEnd = () => {
       clearTimeout(touchResume);
@@ -158,6 +186,7 @@ export default function Hero() {
       }, 1500);
     };
     wrap.addEventListener("touchstart", onTouchStart, { passive: true });
+    wrap.addEventListener("touchmove", onTouchMove, { passive: true });
     wrap.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
@@ -169,6 +198,7 @@ export default function Hero() {
       wrap.removeEventListener("pointerup", onPointerUp);
       wrap.removeEventListener("pointercancel", onPointerUp);
       wrap.removeEventListener("touchstart", onTouchStart);
+      wrap.removeEventListener("touchmove", onTouchMove);
       wrap.removeEventListener("touchend", onTouchEnd);
       clearTimeout(touchResume);
     };
@@ -268,7 +298,12 @@ export default function Hero() {
                 src={img.src}
                 alt=""
                 className="woi-car-img"
-                style={img.whiteBg ? { background: "#fff" } : undefined}
+                style={{ cursor: "pointer", ...(img.whiteBg ? { background: "#fff" } : {}) }}
+                onClick={() => {
+                  // ignore the click that ends a drag / swipe
+                  if (gestureMoved.current) return;
+                  setSelected(i % CAROUSEL_IMAGES.length);
+                }}
               />
             ))}
           </div>
@@ -286,6 +321,15 @@ export default function Hero() {
           }}
         />
       </div>
+
+      {selected !== null && (
+        <Lightbox
+          items={CAROUSEL_ITEMS}
+          index={selected}
+          onClose={() => setSelected(null)}
+          onNavigate={setSelected}
+        />
+      )}
     </div>
   );
 }

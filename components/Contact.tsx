@@ -44,11 +44,19 @@ export default function Contact() {
             marginTop: 10,
           }}
         >
-          <a href="mailto:hello@woiagency.id" className="woi-contact-pill-solid">
-            ✉ hello@woiagency.id
+          <a
+            href="mailto:waveofinnovation.agency@gmail.com"
+            className="woi-contact-pill-solid"
+          >
+            ✉ waveofinnovation.agency@gmail.com
           </a>
-          <a href="tel:+6281234567890" className="woi-contact-pill-outline">
-            ✆ +62 812-3456-7890
+          <a
+            href="https://wa.me/6289696116932?text=Halo%20WOI%20Agency,%20saya%20tertarik%20dengan%20layanan%20Anda."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="woi-contact-pill-outline"
+          >
+            ✆ +62 896-9611-6932
           </a>
         </div>
         <div style={{ display: "flex", gap: 12, marginTop: 14 }}>
