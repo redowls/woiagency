@@ -61,8 +61,9 @@ export default function Contact() {
         </div>
         <div style={{ display: "flex", gap: 12, marginTop: 14 }}>
           <a
-            href="https://instagram.com/woiagency"
+            href="https://www.instagram.com/woi.agency?igsh=bDZpb2hxOGxmajdu&utm_source=qr"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Instagram"
             className="woi-social"
           >
