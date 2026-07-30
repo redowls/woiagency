@@ -14,7 +14,7 @@ export const CATEGORIES = [
   "Banner",
   "Logo",
   "Animation",
-  "NGEFAMOUS",
+  "Our Clients",
 ] as const;
 
 export const DEFAULT_VIDEO = "/assets/video-bumper.mp4";
