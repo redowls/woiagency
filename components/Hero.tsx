@@ -241,12 +241,10 @@ export default function Hero() {
         />
       ))}
       <img src="/assets/woi-logo-new.png" alt="WOI Agency logo" className="woi-hero-logo" />
-      <h1 className="woi-h1">Ride the Wave. Own the Innovation.</h1>
-      <p className="woi-hero-sub">
-        WOI Agency — Wave of Innovation. A creative content studio for graphic
-        design, branding, motion graphics, and social media. From ideas to work
-        that makes an impact.
-      </p>
+      <h1 className="woi-h1">Wave Of Innovation</h1>
+      <h5 className="woi-hero-sub">
+        Ride the Wave. Own the Innovation.
+      </h5>
       <div className="woi-hero-cta-row">
         <a
           href="#portfolio"
