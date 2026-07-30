@@ -4,6 +4,8 @@ export type PortfolioItem = {
   cat: string;
   desc: string;
   isVideo?: boolean;
+  /** source for isVideo items; falls back to DEFAULT_VIDEO */
+  video?: string;
 };
 
 export const CATEGORIES = [
@@ -12,7 +14,10 @@ export const CATEGORIES = [
   "Banner",
   "Logo",
   "Animation",
+  "NGEFAMOUS",
 ] as const;
+
+export const DEFAULT_VIDEO = "/assets/video-bumper.mp4";
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
@@ -99,6 +104,44 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     title: "Bumper Video",
     cat: "Animation",
     desc: "Short animated bumper — a branded opener that gives video content a consistent, polished start.",
+  },
+  {
+    img: "/assets/ngefamous-shopee.png",
+    title: "Shopee",
+    cat: "NGEFAMOUS",
+    desc: "Social campaign visual for Shopee, built for the NGEFAMOUS content series — bold, feed-native art direction made to stop the scroll.",
+  },
+  {
+    img: "/assets/ngefamous-yamaha.png",
+    title: "Yamaha",
+    cat: "NGEFAMOUS",
+    desc: "Yamaha brand content for the NGEFAMOUS series, pairing a hero product shot with punchy campaign typography.",
+  },
+  {
+    img: "/assets/ngefamous-nco-parfume.png",
+    title: "NCO Parfume",
+    cat: "NGEFAMOUS",
+    desc: "Product-led feed design for NCO Parfume — clean styling that lets the bottle carry the frame while the brand voice sits underneath.",
+  },
+  {
+    img: "/assets/ngefamous-teh-tjap-solo.png",
+    title: "Teh Tjap Solo",
+    cat: "NGEFAMOUS",
+    desc: "Heritage-meets-modern campaign visual for Teh Tjap Solo, keeping the classic brand identity intact in a contemporary social layout.",
+  },
+  {
+    img: "/assets/ngefamous-heygurl.png",
+    title: "Heygurl",
+    cat: "NGEFAMOUS",
+    desc: "Playful, high-energy feed design for Heygurl — colour-forward styling tuned to a young, trend-driven audience.",
+  },
+  {
+    isVideo: true,
+    img: "",
+    video: "/assets/ngefamous-video.mp4",
+    title: "NGEFAMOUS Reel",
+    cat: "NGEFAMOUS",
+    desc: "Vertical video edit for the NGEFAMOUS campaign — fast-cut, sound-led storytelling built for Reels and TikTok.",
   },
 ];
 

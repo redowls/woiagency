@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { PortfolioItem } from "@/lib/portfolio";
+import { DEFAULT_VIDEO, type PortfolioItem } from "@/lib/portfolio";
 import { scrollToSection } from "@/lib/scroll";
 
 type Props = {
@@ -98,7 +98,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           {item.isVideo ? (
             <video
               ref={videoRef}
-              src="/assets/video-bumper.mp4"
+              src={item.video ?? DEFAULT_VIDEO}
               muted
               loop
               playsInline
@@ -209,7 +209,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           }}
         >
           {item.isVideo ? (
-            <video src="/assets/video-bumper.mp4" muted loop playsInline autoPlay />
+            <video src={item.video ?? DEFAULT_VIDEO} muted loop playsInline autoPlay />
           ) : (
             <img src={item.img} alt={item.title} />
           )}

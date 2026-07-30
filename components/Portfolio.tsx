@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CATEGORIES, PORTFOLIO_ITEMS } from "@/lib/portfolio";
+import { CATEGORIES, DEFAULT_VIDEO, PORTFOLIO_ITEMS } from "@/lib/portfolio";
 import Lightbox from "@/components/Lightbox";
 
-function PortfolioVideo() {
+function PortfolioVideo({ src }: { src: string }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   // autoplay-race guard: retry play on mount / remount after filter change
@@ -25,7 +25,7 @@ function PortfolioVideo() {
   return (
     <video
       ref={ref}
-      src="/assets/video-bumper.mp4"
+      src={src}
       muted
       loop
       playsInline
@@ -113,7 +113,7 @@ export default function Portfolio() {
           <div key={it.title} className="woi-card" onClick={() => setSelected(i)}>
             <div style={{ width: "100%", height: "100%", background: "#eef2fa", overflow: "hidden" }}>
               {it.isVideo ? (
-                <PortfolioVideo />
+                <PortfolioVideo src={it.video ?? DEFAULT_VIDEO} />
               ) : (
                 <img
                   src={it.img}
