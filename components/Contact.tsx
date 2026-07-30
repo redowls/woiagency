@@ -74,23 +74,15 @@ export default function Contact() {
             </svg>
           </a>
           <a
-            href="https://youtube.com/@woiagency"
+            href="https://www.tiktok.com/@woi.agency?is_from_webapp=1&sender_device=pc"
             target="_blank"
-            aria-label="YouTube"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
             className="woi-social"
           >
-            <svg width="21" height="21" viewBox="0 0 24 24" fill="#fff">
-              <rect x="2" y="5" width="20" height="14" rx="4" fill="none" stroke="#fff" strokeWidth="2" />
-              <path d="M10 9.5v5l4.5-2.5z" />
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff">
+              <path d="M16.5 2h-3v13.5a2.5 2.5 0 1 1-2.5-2.5c.17 0 .34.02.5.05V9.9a5.5 5.5 0 1 0 5 5.48V8.2a7.5 7.5 0 0 0 4 1.15V6.35A4.5 4.5 0 0 1 16.5 2z" />
             </svg>
-          </a>
-          <a
-            href="https://linkedin.com/company/woiagency"
-            target="_blank"
-            aria-label="LinkedIn"
-            className="woi-social"
-          >
-            in
           </a>
         </div>
       </div>
