@@ -108,31 +108,31 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     img: "/assets/ngefamous-shopee.png",
     title: "Shopee",
-    cat: "NGEFAMOUS",
+    cat: "Our Clients",
     desc: "Social campaign visual for Shopee, built for the NGEFAMOUS content series — bold, feed-native art direction made to stop the scroll.",
   },
   {
     img: "/assets/ngefamous-yamaha.png",
     title: "Yamaha",
-    cat: "NGEFAMOUS",
+    cat: "Our Clients",
     desc: "Yamaha brand content for the NGEFAMOUS series, pairing a hero product shot with punchy campaign typography.",
   },
   {
     img: "/assets/ngefamous-nco-parfume.png",
     title: "NCO Parfume",
-    cat: "NGEFAMOUS",
+    cat: "Our Clients",
     desc: "Product-led feed design for NCO Parfume — clean styling that lets the bottle carry the frame while the brand voice sits underneath.",
   },
   {
     img: "/assets/ngefamous-teh-tjap-solo.png",
     title: "Teh Tjap Solo",
-    cat: "NGEFAMOUS",
+    cat: "Our Clients",
     desc: "Heritage-meets-modern campaign visual for Teh Tjap Solo, keeping the classic brand identity intact in a contemporary social layout.",
   },
   {
     img: "/assets/ngefamous-heygurl.png",
     title: "Heygurl",
-    cat: "NGEFAMOUS",
+    cat: "Our Clients",
     desc: "Playful, high-energy feed design for Heygurl — colour-forward styling tuned to a young, trend-driven audience.",
   },
   {
@@ -140,7 +140,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     img: "",
     video: "/assets/ngefamous-video.mp4",
     title: "NGEFAMOUS Reel",
-    cat: "NGEFAMOUS",
+    cat: "Our Clients",
     desc: "Vertical video edit for the NGEFAMOUS campaign — fast-cut, sound-led storytelling built for Reels and TikTok.",
   },
 ];
