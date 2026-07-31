@@ -11,16 +11,48 @@ type Props = {
   onNavigate: (index: number) => void;
 };
 
+function SoundIcon({ muted }: { muted: boolean }) {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M11 5 6 9H3v6h3l5 4z" fill="#fff" />
+      {muted ? (
+        <path d="M17 9.5l4 5M21 9.5l-4 5" />
+      ) : (
+        <>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+          <path d="M18.5 6a9 9 0 0 1 0 12" />
+        </>
+      )}
+    </svg>
+  );
+}
+
 export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
   const item = items[index];
   const videoRef = useRef<HTMLVideoElement>(null);
+  const fullviewVideoRef = useRef<HTMLVideoElement>(null);
   const [fullview, setFullview] = useState(false);
+  // videos must start muted or browsers block autoplay; a tap unmutes (Instagram-style)
+  const [muted, setMuted] = useState(true);
 
   const prev = () => onNavigate((index - 1 + items.length) % items.length);
   const next = () => onNavigate((index + 1) % items.length);
 
-  // leave fullscreen when moving to another work
-  useEffect(() => setFullview(false), [index]);
+  // leave fullscreen when moving to another work, and re-mute so the next
+  // video can autoplay (an unmuted autoplay would be blocked)
+  useEffect(() => {
+    setFullview(false);
+    setMuted(true);
+  }, [index]);
+
+  // React only sets `muted` on mount, so drive it imperatively on every change
+  const mutedRef = useRef(muted);
+  useEffect(() => {
+    mutedRef.current = muted;
+    for (const ref of [videoRef, fullviewVideoRef]) {
+      if (ref.current) ref.current.muted = muted;
+    }
+  }, [muted, fullview, index]);
 
   // lock page scroll while open; Esc closes (fullscreen first), arrows navigate
   useEffect(() => {
@@ -46,7 +78,9 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
     if (!v) return;
     const tryPlay = () => {
       if (v.paused) {
-        v.muted = true;
+        // only force-mute while the viewer still wants silence — otherwise
+        // this would quietly undo their unmute on the next tick
+        if (mutedRef.current) v.muted = true;
         v.play().catch(() => {});
       }
     };
@@ -103,9 +137,23 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
               loop
               playsInline
               autoPlay
+              onClick={() => setMuted((m) => !m)}
             />
           ) : (
             <img src={item.img} alt={item.title} />
+          )}
+          {item.isVideo && (
+            <button
+              className="woi-sound-btn"
+              aria-label={muted ? "Unmute video" : "Mute video"}
+              aria-pressed={!muted}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMuted((m) => !m);
+              }}
+            >
+              <SoundIcon muted={muted} />
+            </button>
           )}
           <button
             className="woi-fullscreen-btn"
@@ -209,9 +257,33 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           }}
         >
           {item.isVideo ? (
-            <video src={item.video ?? DEFAULT_VIDEO} muted loop playsInline autoPlay />
+            <video
+              ref={fullviewVideoRef}
+              src={item.video ?? DEFAULT_VIDEO}
+              muted
+              loop
+              playsInline
+              autoPlay
+              onClick={(e) => {
+                e.stopPropagation();
+                setMuted((m) => !m);
+              }}
+            />
           ) : (
             <img src={item.img} alt={item.title} />
+          )}
+          {item.isVideo && (
+            <button
+              className="woi-sound-btn"
+              aria-label={muted ? "Unmute video" : "Mute video"}
+              aria-pressed={!muted}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMuted((m) => !m);
+              }}
+            >
+              <SoundIcon muted={muted} />
+            </button>
           )}
           <button
             className="woi-lightbox-close"

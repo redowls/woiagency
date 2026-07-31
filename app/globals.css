@@ -381,19 +381,26 @@ body {
   position: fixed;
   inset: 0;
   z-index: 100;
-  display: grid;
-  place-items: center;
+  /* flex + margin:auto on the shell centers short content but still lets
+     tall content scroll without clipping its top (grid/place-items would) */
+  display: flex;
   padding: 48px 90px;
   background: rgba(5, 13, 33, 0.78);
   backdrop-filter: blur(10px);
   animation: woi-fade-in 0.25s ease;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
 }
 
 /* positioning shell: the dialog plus the arrows that hug it */
 .woi-lightbox-shell {
   position: relative;
+  margin: auto;
   width: min(980px, 100%);
   height: min(620px, 88vh);
+  flex-shrink: 0;
 }
 
 .woi-lightbox-dialog {
@@ -466,6 +473,34 @@ body {
   }
 }
 
+/* Instagram-style sound toggle: always visible so muted state is never a surprise */
+.woi-sound-btn {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(5, 13, 33, 0.55);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.25s ease;
+}
+
+.woi-sound-btn:hover {
+  background: rgba(10, 72, 255, 0.6);
+}
+
+/* tapping the video itself toggles sound, so flag it as interactive */
+.woi-lightbox-media video,
+.woi-fullview video {
+  cursor: pointer;
+}
+
 .woi-fullview {
   position: fixed;
   inset: 0;
@@ -494,6 +529,10 @@ body {
   display: flex;
   flex-direction: column;
   padding: 24px 26px 22px;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .woi-lightbox-close {
