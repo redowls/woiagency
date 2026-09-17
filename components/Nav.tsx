@@ -7,6 +7,7 @@ const NAV_ITEMS = [
   { id: "home", label: "Home" },
   { id: "services", label: "Services" },
   { id: "portfolio", label: "Portfolio" },
+  { id: "insights", label: "Insights" },
 ];
 
 export default function Nav() {

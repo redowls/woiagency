@@ -676,6 +676,133 @@ body {
   transform: scale(0.97);
 }
 
+/* ============ Insights ============ */
+.woi-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.woi-kpi,
+.woi-chart-card {
+  background: #0c1a3a;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  min-width: 0;
+}
+
+.woi-kpi {
+  padding: 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.woi-kpi-label {
+  font-size: 12.5px;
+  color: #93a4c8;
+  letter-spacing: 0.3px;
+}
+
+.woi-kpi-value {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.woi-kpi-delta {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #35c77a;
+}
+
+.woi-chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.woi-chart-card {
+  padding: 24px 26px 18px;
+  position: relative;
+}
+
+.woi-chart-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.woi-chart-sub {
+  margin: 3px 0 14px;
+  font-size: 12.5px;
+  color: #93a4c8;
+}
+
+.woi-chart-tip {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  transform: translate(-50%, calc(-100% - 14px));
+  background: #f2f6ff;
+  color: #0b1c3d;
+  border-radius: 10px;
+  padding: 7px 11px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.woi-rank-row {
+  display: grid;
+  grid-template-columns: 26px 150px 1fr 64px;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 6px;
+  margin: 0 -6px;
+  border-radius: 10px;
+  color: inherit;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.woi-rank-row:hover,
+.woi-rank-row:focus-visible {
+  background: rgba(255, 255, 255, 0.04);
+  outline: none;
+}
+
+.woi-rank-track {
+  display: block;
+  min-width: 0;
+}
+
+.woi-rank-bar {
+  display: block;
+  height: 10px;
+  min-width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: #3d8bff;
+  transition: filter 0.2s ease;
+}
+
+.woi-rank-row:hover .woi-rank-bar,
+.woi-rank-row:focus-visible .woi-rank-bar {
+  filter: brightness(1.25);
+}
+
+.woi-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* ============ Contact ============ */
 .woi-contact-pill-solid {
   display: flex;
@@ -745,6 +872,10 @@ body {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .woi-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .woi-portfolio-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -753,6 +884,15 @@ body {
 @media (max-width: 880px) {
   .woi-nav-links {
     display: none;
+  }
+
+  .woi-chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .woi-rank-row {
+    grid-template-columns: 22px 112px 1fr 56px;
+    gap: 10px;
   }
 
   .woi-nav-toggle {
@@ -844,6 +984,22 @@ body {
 }
 
 @media (max-width: 560px) {
+  .woi-kpi-grid {
+    gap: 12px;
+  }
+
+  .woi-kpi {
+    padding: 18px 18px;
+  }
+
+  .woi-kpi-value {
+    font-size: 28px;
+  }
+
+  .woi-rank-row {
+    grid-template-columns: 16px 118px 1fr 48px;
+    gap: 8px;
+  }
   .woi-nav {
     margin: 10px 12px 0;
     padding: 8px 10px;

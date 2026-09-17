@@ -1,3 +1,5 @@
+import { liveViews } from "@/lib/insights";
+
 export type PortfolioItem = {
   img: string;
   title: string;
@@ -24,7 +26,7 @@ export const CATEGORIES = [
 
 export const DEFAULT_VIDEO = "/assets/video-bumper.mp4";
 
-export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+const ITEMS: PortfolioItem[] = [
   // kept first so it opens both the "All" grid and the "Highlight" tab
   {
     isVideo: true,
@@ -32,7 +34,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     video: "/assets/Highlight/highlight-1.mp4",
     title: "RESULT vs BTS Reel",
     cat: "Highlight",
-    desc: "Our most-watched piece: a split-screen reel that puts the finished content up top and the behind-the-scenes process underneath — the edit, the shot list, the work nobody usually sees. It crossed 4.2M views on Instagram.",
+    desc: "Our most-watched piece: a split-screen reel that puts the finished content up top and the behind-the-scenes process underneath — the edit, the shot list, the work nobody usually sees.",
     views: "4.2M",
     link: "https://www.instagram.com/reel/DdBbDFIBIap/",
   },
@@ -42,7 +44,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     video: "/assets/Highlight/highlight-2.mp4",
     title: "DIY Phone Stabilizer",
     cat: "Highlight",
-    desc: "A gear-hack reel: two phones and two rubber bands turned into a stabilizer rig, then the horizontal-versus-vertical results it produces on a real shoot. Practical, cheap, and built for saves and shares — 14.4K views on Instagram.",
+    desc: "A gear-hack reel: two phones and two rubber bands turned into a stabilizer rig, then the horizontal-versus-vertical results it produces on a real shoot. Practical, cheap, and built for saves and shares.",
     views: "14.4K",
     link: "https://www.instagram.com/reel/DdQ4gFwoNI6/",
   },
@@ -170,6 +172,13 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     desc: "Vertical video edit for the NGEFAMOUS campaign — fast-cut, sound-led storytelling built for Reels and TikTok.",
   },
 ];
+
+// view badges come from data/insights.json when the reel is found there;
+// the literal is only the fallback for a post the sync has not seen
+export const PORTFOLIO_ITEMS: PortfolioItem[] = ITEMS.map((it) => ({
+  ...it,
+  views: liveViews(it.link) ?? it.views,
+}));
 
 export const CAROUSEL_IMAGES: { src: string; whiteBg?: boolean }[] = [
   { src: "/assets/poster-bogor-depok.png" },
