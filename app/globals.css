@@ -756,44 +756,6 @@ body {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
-.woi-rank-row {
-  display: grid;
-  grid-template-columns: 26px 150px 1fr 64px;
-  align-items: center;
-  gap: 14px;
-  padding: 7px 6px;
-  margin: 0 -6px;
-  border-radius: 10px;
-  color: inherit;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.woi-rank-row:hover,
-.woi-rank-row:focus-visible {
-  background: rgba(255, 255, 255, 0.04);
-  outline: none;
-}
-
-.woi-rank-track {
-  display: block;
-  min-width: 0;
-}
-
-.woi-rank-bar {
-  display: block;
-  height: 10px;
-  min-width: 3px;
-  border-radius: 0 4px 4px 0;
-  background: #3d8bff;
-  transition: filter 0.2s ease;
-}
-
-.woi-rank-row:hover .woi-rank-bar,
-.woi-rank-row:focus-visible .woi-rank-bar {
-  filter: brightness(1.25);
-}
-
 .woi-sr-only {
   position: absolute;
   width: 1px;
@@ -890,10 +852,6 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .woi-rank-row {
-    grid-template-columns: 22px 112px 1fr 56px;
-    gap: 10px;
-  }
 
   .woi-nav-toggle {
     display: grid;
@@ -996,10 +954,6 @@ body {
     font-size: 28px;
   }
 
-  .woi-rank-row {
-    grid-template-columns: 16px 118px 1fr 48px;
-    gap: 8px;
-  }
   .woi-nav {
     margin: 10px 12px 0;
     padding: 8px 10px;

@@ -87,8 +87,6 @@ export const TOTALS = (() => {
       (a, d) => a + (d.followerDelta ?? 0),
       0,
     ),
-    reels: m.filter((x) => x.type === "REEL").length,
-    feed: m.filter((x) => x.type !== "REEL").length,
   };
 })();
 
@@ -118,9 +116,4 @@ export function followerSeries(): SeriesPoint[] {
     f -= days[i].followerDelta ?? 0;
   }
   return out;
-}
-
-/** Every post, most-viewed first. */
-export function ranked(): InsightMedia[] {
-  return [...INSIGHTS.media].sort((a, b) => b.views - a.views);
 }

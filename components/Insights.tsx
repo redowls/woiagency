@@ -9,8 +9,6 @@ import {
   followerSeries,
   formatCompact,
   formatFull,
-  kindLabel,
-  ranked,
   type SeriesPoint,
 } from "@/lib/insights";
 
@@ -203,9 +201,7 @@ function Kpi({ label, value, note, delta }: { label: string; value: string; note
 export default function Insights() {
   const views = useMemo(cumulativeViews, []);
   const followers = useMemo(followerSeries, []);
-  const rows = useMemo(ranked, []);
   if (!INSIGHTS.media.length) return null;
-  const maxViews = Math.max(1, ...rows.map((m) => m.views));
 
   return (
     <div id="insights" className="woi-section" style={{ background: "#081530", scrollMarginTop: 80 }}>
@@ -269,43 +265,7 @@ export default function Insights() {
         )}
       </div>
 
-      <div className="woi-chart-card">
-        <h3 className="woi-chart-title">Every post, ranked by views</h3>
-        <p className="woi-chart-sub">
-          {TOTALS.reels} reels and {TOTALS.feed} feed posts — tap one to open it on Instagram
-        </p>
-        <div>
-          {rows.map((m, i) => (
-            <a
-              key={m.id}
-              className="woi-rank-row"
-              href={m.permalink}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`${kindLabel(m.type)} from ${dayLabel(m.timestamp, true)}: ${formatFull(m.views)} views`}
-            >
-              <span style={{ fontSize: 12, color: INK.muted, textAlign: "right", fontVariantNumeric: "tabular-nums" }}>
-                {i + 1}
-              </span>
-              <span style={{ fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                <strong>{kindLabel(m.type)}</strong>
-                <span style={{ color: INK.muted }}> · {dayLabel(m.timestamp)}</span>
-              </span>
-              <span className="woi-rank-track">
-                <span className="woi-rank-bar" style={{ width: `${(m.views / maxViews) * 100}%` }} />
-              </span>
-              <span
-                style={{ fontSize: 13, fontWeight: 700, textAlign: "right", fontVariantNumeric: "tabular-nums" }}
-                title={`${formatFull(m.views)} views`}
-              >
-                {formatCompact(m.views)}
-              </span>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      <p style={{ margin: "22px 0 0", fontSize: 12, color: INK.muted, textAlign: "center" }}>
+      <p style={{ margin: "4px 0 0", fontSize: 12, color: INK.muted, textAlign: "center" }}>
         Source: Instagram API, @{INSIGHTS.account.username} · updated {dayLabel(INSIGHTS.generatedAt, true)}
       </p>
     </div>
