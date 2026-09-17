@@ -37,7 +37,8 @@ function ViewsBadge({ views }: { views: string }) {
 }
 
 export default function Portfolio() {
-  const [filter, setFilter] = useState<string>("All");
+  // the portfolio opens on the highlight reels, not the full catalogue
+  const [filter, setFilter] = useState<string>("Highlight");
   const [selected, setSelected] = useState<number | null>(null);
   const items = PORTFOLIO_ITEMS.filter((it) => filter === "All" || it.cat === filter);
 
