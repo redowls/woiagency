@@ -37,6 +37,16 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     link: "https://www.instagram.com/reel/DdBbDFIBIap/",
   },
   {
+    isVideo: true,
+    img: "",
+    video: "/assets/Highlight/highlight-2.mp4",
+    title: "DIY Phone Stabilizer",
+    cat: "Highlight",
+    desc: "A gear-hack reel: two phones and two rubber bands turned into a stabilizer rig, then the horizontal-versus-vertical results it produces on a real shoot. Practical, cheap, and built for saves and shares — 14.4K views on Instagram.",
+    views: "14.4K",
+    link: "https://www.instagram.com/reel/DdQ4gFwoNI6/",
+  },
+  {
     img: "/assets/poster-architecture.png",
     title: "Architecture Study Program",
     cat: "Poster & Flyer",
