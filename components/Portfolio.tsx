@@ -22,17 +22,7 @@ function PortfolioVideo({ src }: { src: string }) {
     return () => clearInterval(id);
   }, []);
 
-  return (
-    <video
-      ref={ref}
-      src={src}
-      muted
-      loop
-      playsInline
-      autoPlay
-      style={{ width: "100%", height: "100%", objectFit: "cover" }}
-    />
-  );
+  return <video ref={ref} src={src} muted loop playsInline autoPlay />;
 }
 
 function ViewsBadge({ views }: { views: string }) {
@@ -122,20 +112,11 @@ export default function Portfolio() {
       <div className="woi-portfolio-grid">
         {items.map((it, i) => (
           <div key={it.title} className="woi-card" onClick={() => setSelected(i)}>
-            <div style={{ width: "100%", height: "100%", background: "#eef2fa", overflow: "hidden" }}>
+            <div className="woi-card-media">
               {it.isVideo ? (
                 <PortfolioVideo src={it.video ?? DEFAULT_VIDEO} />
               ) : (
-                <img
-                  src={it.img}
-                  alt={it.title}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    objectPosition: "top",
-                  }}
-                />
+                <img src={it.img} alt={it.title} />
               )}
             </div>
             {it.views && <ViewsBadge views={it.views} />}

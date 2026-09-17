@@ -326,8 +326,28 @@ body {
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 4px 22px rgba(11, 28, 61, 0.08);
-  height: 270px;
+  /* square frame: portrait and landscape work alike, nothing gets cropped */
+  aspect-ratio: 1 / 1;
   cursor: pointer;
+}
+
+/* the whole work is shown inside the square, so the leftover edge is
+   painted rather than filled by cropping the artwork */
+.woi-card-media {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.woi-card-media img,
+.woi-card-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .woi-card:hover {
