@@ -184,21 +184,44 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
               margin: "16px 0 18px",
             }}
           />
-          <span
-            style={{
-              alignSelf: "flex-start",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: 1,
-              textTransform: "uppercase",
-              color: "#0a48ff",
-              background: "#eef2fa",
-              padding: "6px 12px",
-              borderRadius: 999,
-            }}
-          >
-            {item.cat}
-          </span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                letterSpacing: 1,
+                textTransform: "uppercase",
+                color: "#0a48ff",
+                background: "#eef2fa",
+                padding: "6px 12px",
+                borderRadius: 999,
+              }}
+            >
+              {item.cat}
+            </span>
+            {item.views && (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 5,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: 1,
+                  textTransform: "uppercase",
+                  color: "#fff",
+                  background: "linear-gradient(120deg,#0a48ff,#01bdf9)",
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                }}
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                {item.views} views
+              </span>
+            )}
+          </div>
           <h3
             style={{
               margin: "14px 0 10px",
@@ -219,6 +242,22 @@ export default function Lightbox({ items, index, onClose, onNavigate }: Props) {
           >
             {item.desc}
           </p>
+          {item.link && (
+            <a
+              className="woi-ig-link"
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" />
+              </svg>
+              Watch on Instagram
+            </a>
+          )}
           <div style={{ flex: 1 }} />
           <div
             style={{

@@ -356,6 +356,50 @@ body {
   transform: translateY(0);
 }
 
+/* social proof on a highlighted work — stays visible, unlike .woi-cap */
+.woi-views-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #fff;
+  background: rgba(5, 13, 33, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: none;
+}
+
+.woi-ig-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 16px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  color: #0b1c3d;
+  border: 1.5px solid #dde5f2;
+  background: #fff;
+  transition: all 0.25s ease;
+}
+
+.woi-ig-link:hover {
+  color: #0a48ff;
+  border-color: #0a48ff;
+  background: #f4f7fd;
+}
+
 /* ============ Lightbox ============ */
 @keyframes woi-fade-in {
   from {

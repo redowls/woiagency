@@ -12,3 +12,7 @@ next-env.d.ts
 
 # local env
 .env*.local
+
+# raw camera masters (HEVC/.MOV won't play in browsers) — the web-ready
+# transcode next to them is what ships
+public/assets/**/*.MOV

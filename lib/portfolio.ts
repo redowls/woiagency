@@ -6,10 +6,15 @@ export type PortfolioItem = {
   isVideo?: boolean;
   /** source for isVideo items; falls back to DEFAULT_VIDEO */
   video?: string;
+  /** social proof, e.g. "4.2M" — renders as a views badge on the card */
+  views?: string;
+  /** where the work is published (Instagram reel, etc.) */
+  link?: string;
 };
 
 export const CATEGORIES = [
   "All",
+  "Highlight",
   "Poster & Flyer",
   "Banner",
   "Logo",
@@ -20,6 +25,17 @@ export const CATEGORIES = [
 export const DEFAULT_VIDEO = "/assets/video-bumper.mp4";
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
+  // kept first so it opens both the "All" grid and the "Highlight" tab
+  {
+    isVideo: true,
+    img: "",
+    video: "/assets/Highlight/highlight-1.mp4",
+    title: "RESULT vs BTS Reel",
+    cat: "Highlight",
+    desc: "Our most-watched piece: a split-screen reel that puts the finished content up top and the behind-the-scenes process underneath — the edit, the shot list, the work nobody usually sees. It crossed 4.2M views on Instagram.",
+    views: "4.2M",
+    link: "https://www.instagram.com/reel/DdBbDFIBIap/",
+  },
   {
     img: "/assets/poster-architecture.png",
     title: "Architecture Study Program",

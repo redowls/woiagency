@@ -35,6 +35,17 @@ function PortfolioVideo({ src }: { src: string }) {
   );
 }
 
+function ViewsBadge({ views }: { views: string }) {
+  return (
+    <span className="woi-views-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+      {views} views
+    </span>
+  );
+}
+
 export default function Portfolio() {
   const [filter, setFilter] = useState<string>("All");
   const [selected, setSelected] = useState<number | null>(null);
@@ -127,6 +138,7 @@ export default function Portfolio() {
                 />
               )}
             </div>
+            {it.views && <ViewsBadge views={it.views} />}
             <div className="woi-cap">
               <span style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>{it.title}</span>
               <span style={{ fontSize: 12, color: "#a9bbe0" }}>{it.cat}</span>
