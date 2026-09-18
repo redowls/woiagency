@@ -184,7 +184,7 @@ const ITEMS: PortfolioItem[] = [
     title: "Own My Nails",
     cat: "Our Clients",
     client: "Own My Nails",
-    desc: "Own My Nails by Michelle Aurell, a nail-art studio on our client list — a quiet, editorial logotype set inside an open circle, at home on a salon window and an Instagram profile alike.",
+    desc: "Logo and brand mark for Own My Nails by Michelle Aurell — we set a quiet, editorial serif logotype inside an open circle, with the founder's name tracing the curve. Restrained on purpose: it lets the nail art be the colour, and holds up on a salon window and an Instagram profile alike.",
   },
 ];
 
