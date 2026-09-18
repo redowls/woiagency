@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CATEGORIES, DEFAULT_VIDEO, PORTFOLIO_ITEMS } from "@/lib/portfolio";
+import { CATEGORIES, CLIENTS, DEFAULT_VIDEO, PORTFOLIO_ITEMS } from "@/lib/portfolio";
 import Lightbox from "@/components/Lightbox";
 
 function PortfolioVideo({ src }: { src: string }) {
@@ -39,8 +39,14 @@ function ViewsBadge({ views }: { views: string }) {
 export default function Portfolio() {
   // the portfolio opens on the highlight reels, not the full catalogue
   const [filter, setFilter] = useState<string>("Highlight");
+  // "Our Clients" narrows once more, one brand at a time
+  const [client, setClient] = useState<string>(CLIENTS[0] ?? "");
   const [selected, setSelected] = useState<number | null>(null);
-  const items = PORTFOLIO_ITEMS.filter((it) => filter === "All" || it.cat === filter);
+  const items = PORTFOLIO_ITEMS.filter(
+    (it) =>
+      (filter === "All" || it.cat === filter) &&
+      (filter !== "Our Clients" || it.client === client),
+  );
 
   return (
     <div
@@ -110,6 +116,22 @@ export default function Portfolio() {
           </button>
         ))}
       </div>
+      {filter === "Our Clients" && CLIENTS.length > 1 && (
+        <div className="woi-subfilter" role="group" aria-label="Choose a client">
+          {CLIENTS.map((c) => (
+            <button
+              key={c}
+              className={`woi-filter-pill woi-filter-pill--sub${client === c ? " is-active" : ""}`}
+              onClick={() => {
+                setClient(c);
+                setSelected(null);
+              }}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="woi-portfolio-grid">
         {items.map((it, i) => (
           <div key={it.title} className="woi-card" onClick={() => setSelected(i)}>

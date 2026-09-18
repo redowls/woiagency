@@ -12,6 +12,8 @@ export type PortfolioItem = {
   views?: string;
   /** where the work is published (Instagram reel, etc.) */
   link?: string;
+  /** brand the work was made for — groups "Our Clients" into sub-tabs */
+  client?: string;
 };
 
 export const CATEGORIES = [
@@ -137,30 +139,35 @@ const ITEMS: PortfolioItem[] = [
     img: "/assets/ngefamous-shopee.png",
     title: "Shopee",
     cat: "Our Clients",
+    client: "NGEFAMOUS",
     desc: "Social campaign visual for Shopee, built for the NGEFAMOUS content series — bold, feed-native art direction made to stop the scroll.",
   },
   {
     img: "/assets/ngefamous-yamaha.png",
     title: "Yamaha",
     cat: "Our Clients",
+    client: "NGEFAMOUS",
     desc: "Yamaha brand content for the NGEFAMOUS series, pairing a hero product shot with punchy campaign typography.",
   },
   {
     img: "/assets/ngefamous-nco-parfume.png",
     title: "NCO Parfume",
     cat: "Our Clients",
+    client: "NGEFAMOUS",
     desc: "Product-led feed design for NCO Parfume — clean styling that lets the bottle carry the frame while the brand voice sits underneath.",
   },
   {
     img: "/assets/ngefamous-teh-tjap-solo.png",
     title: "Teh Tjap Solo",
     cat: "Our Clients",
+    client: "NGEFAMOUS",
     desc: "Heritage-meets-modern campaign visual for Teh Tjap Solo, keeping the classic brand identity intact in a contemporary social layout.",
   },
   {
     img: "/assets/ngefamous-heygurl.png",
     title: "Heygurl",
     cat: "Our Clients",
+    client: "NGEFAMOUS",
     desc: "Playful, high-energy feed design for Heygurl — colour-forward styling tuned to a young, trend-driven audience.",
   },
   {
@@ -169,9 +176,22 @@ const ITEMS: PortfolioItem[] = [
     video: "/assets/ngefamous-video.mp4",
     title: "NGEFAMOUS Reel",
     cat: "Our Clients",
+    client: "NGEFAMOUS",
     desc: "Vertical video edit for the NGEFAMOUS campaign — fast-cut, sound-led storytelling built for Reels and TikTok.",
   },
+  {
+    img: "/assets/ownMyNails/logo.PNG",
+    title: "Own My Nails",
+    cat: "Our Clients",
+    client: "Own My Nails",
+    desc: "Own My Nails by Michelle Aurell, a nail-art studio on our client list — a quiet, editorial logotype set inside an open circle, at home on a salon window and an Instagram profile alike.",
+  },
 ];
+
+/** brands under "Our Clients", in first-seen order — drives the sub-filter pills */
+export const CLIENTS = Array.from(
+  new Set(ITEMS.filter((it) => it.cat === "Our Clients" && it.client).map((it) => it.client as string)),
+);
 
 // view badges come from data/insights.json when the reel is found there;
 // the literal is only the fallback for a post the sync has not seen

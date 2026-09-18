@@ -321,6 +321,27 @@ body {
   box-shadow: 0 4px 14px rgba(10, 72, 255, 0.3);
 }
 
+/* second-level pills under "Our Clients": quieter than the category row */
+.woi-subfilter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: -16px 0 28px;
+}
+
+.woi-filter-pill--sub {
+  font-size: 12px;
+  padding: 7px 15px;
+  background: #eef2fa;
+  border-color: transparent;
+}
+
+.woi-filter-pill--sub.is-active {
+  background: #0b1c3d;
+  box-shadow: none;
+}
+
 .woi-card {
   position: relative;
   border-radius: 20px;
