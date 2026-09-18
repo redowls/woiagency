@@ -236,20 +236,41 @@ def chown_to_service_user(*paths: Path) -> None:
             os.chown(f, pw.pw_uid, pw.pw_gid)
 
 
-def commit_and_push(today: str) -> None:
+def write_file(data: dict) -> None:
+    OUT.parent.mkdir(exist_ok=True)
+    OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    chown_to_service_user(OUT.parent)
+
+
+def committed_version() -> dict | None:
+    """The insights file as of HEAD — what is actually deployed."""
+    r = subprocess.run(["git", "show", f"HEAD:{OUT.relative_to(REPO)}"],
+                       cwd=REPO, capture_output=True, text=True)
+    return json.loads(r.stdout) if r.returncode == 0 and r.stdout else None
+
+
+def commit_and_push(data: dict) -> bool:
+    """Land data/insights.json on origin/main; False if the tree wasn't ours to touch.
+
+    Pull first, on a clean tree, then write: a rebase refuses to run over an
+    unstaged file — including the very one we are about to commit.
+    """
     rel = str(OUT.relative_to(REPO))
     dirty = [l for l in sh("git", "status", "--porcelain", "--untracked-files=no").splitlines()
              if not l.endswith(rel)]
     if dirty:
         log(f"repo has other uncommitted changes, not committing: {dirty[:3]}")
-        return
+        return False
+    sh("git", "checkout", "--quiet", "--", rel, check=False)  # the fresh copy is in memory
     sh("git", "pull", "--rebase", "--quiet", "origin", "main")
+    write_file(data)
     sh("git", "add", rel)
     if sh("git", "diff", "--cached", "--name-only"):
-        sh("git", "commit", "--quiet", "-m", f"chore: sync Instagram insights ({today})")
+        sh("git", "commit", "--quiet", "-m", f"chore: sync Instagram insights ({data['generatedAt'][:10]})")
         sh("git", "-c", "credential.helper=store", "push", "--quiet", "origin", "main")
         log("pushed — Vercel will redeploy")
     chown_to_service_user(REPO / ".git")
+    return True
 
 
 def rebuild_local() -> None:
@@ -281,20 +302,33 @@ def main() -> int:
     log(f"{data['account']['username']}: {data['account']['followers']:,} followers, "
         f"{len(data['media'])} posts, {tv:,} views")
 
-    if same_numbers(previous, data):
+    # "changed" means changed against what is deployed — the last commit —
+    # not against a working copy a failed run may have left behind
+    baseline = committed_version() if args.commit else previous
+    if same_numbers(baseline, data):
         log("no change")
         return 0
 
-    OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
-    chown_to_service_user(OUT.parent)
+    status = 0
+    try:
+        if args.commit and commit_and_push(data):
+            pass
+        else:
+            write_file(data)
+            status = 1 if args.commit else 0
+    except RuntimeError as e:
+        log(f"commit failed: {e}")
+        write_file(data)
+        status = 1
     log(f"wrote {OUT.relative_to(REPO)}")
 
-    if args.commit:
-        commit_and_push(data["generatedAt"][:10])
     if args.rebuild:
-        rebuild_local()
-    return 0
+        try:
+            rebuild_local()
+        except RuntimeError as e:
+            log(f"rebuild failed: {e}")
+            status = 1
+    return status
 
 
 if __name__ == "__main__":
