@@ -186,6 +186,15 @@ const ITEMS: PortfolioItem[] = [
     client: "Own My Nails",
     desc: "Logo and brand mark for Own My Nails — a quiet, editorial serif logotype set inside an open circle. Restrained on purpose: it lets the nail art be the colour, and holds up on a salon window and an Instagram profile alike.",
   },
+  {
+    isVideo: true,
+    img: "",
+    video: "/assets/ownMyNails/reel-1.mp4",
+    title: "Own My Nails Reel",
+    cat: "Our Clients",
+    client: "Own My Nails",
+    desc: "Product reel for Own My Nails' press-on sets — a bare-nails before, an unboxing with the freebies, and the designs shown case by case. Shot creator-style so it sits natively in the feed, not like an ad.",
+  },
 ];
 
 /** brands under "Our Clients", in first-seen order — drives the sub-filter pills */
